@@ -12,7 +12,10 @@ import {
 import { ScrollArea } from "@/app/ui/scroll-area";
 import { Button } from "@/app/ui/button";
 
-const eventsByYear = {
+const eventsByYear: Record<
+  string,
+  { title: string; description: string; date: string; image: string }[]
+> = {
   "2023-24": [
     {
       title: "Technizen",
