@@ -18,13 +18,6 @@ const eventsByYear: Record<
 > = {
   "2023-24": [
     {
-      title: "Technizen",
-      description:
-        "A two-day intercollegiate event encompassing over different contests",
-      date: "February 5-6, 2024",
-      image: "/technizenGroup.jpg",
-    },
-    {
       title: "Hackathon 2024",
       description: "48-hour coding marathon with over 200 participants",
       date: "March 15-17, 2024",
@@ -123,39 +116,40 @@ export default function EventsSection() {
       id="events"
       className="min-h-screen flex items-center justify-center bg-gray-100"
     >
-      <div className="container mx-auto px-6 py-20">
+      <div className="container mx-auto px-4 sm:px-6 py-20">
         <h2 className="text-3xl font-bold text-center mb-8 font-playfair">
           Our Events
         </h2>
-        <div className="flex justify-center space-x-4 mb-8 flex-grow-0">
+        <div className="flex flex-wrap justify-center gap-2 mb-8">
           {Object.keys(eventsByYear).map((year) => (
             <Button
               key={year}
               onClick={() => setSelectedYear(year)}
               variant={selectedYear === year ? "default" : "outline"}
+              className="mb-2"
             >
               {year}
             </Button>
           ))}
         </div>
-        <ScrollArea className="h-[400px] w-full rounded-md border p-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <ScrollArea className="h-[600px] w-full rounded-md border p-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {eventsByYear[selectedYear].map((event, index) => (
               <Card key={index} className="w-full">
-                <CardHeader>
-                  <div className="relative w-full h-48 overflow-hidden">
+                <CardHeader className="p-0">
+                  <div className="relative w-full h-48 overflow-hidden group">
                     <Image
                       src={event.image || "/placeholder.svg"}
                       alt={event.title}
                       fill
-                      className="object-cover rounded-t-lg transition-transform duration-300 hover:scale-110"
+                      className="object-cover rounded-t-lg transition-transform duration-300 group-hover:scale-110"
                     />
                   </div>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-4">
                   <CardTitle>{event.title}</CardTitle>
                   <CardDescription>{event.date}</CardDescription>
-                  <p>{event.description}</p>
+                  <p className="mt-2">{event.description}</p>
                 </CardContent>
               </Card>
             ))}
