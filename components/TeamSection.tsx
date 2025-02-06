@@ -1,11 +1,11 @@
 import Image from "next/image";
-import { Card, CardContent, CardHeader, CardTitle } from "@/app/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/ui/card";
 
 const teamMembers = [
   {
     name: "Dr. M. Sreelatha",
     role: "Faculty Sponsor",
-    image: "/placeholder.svg?height=150&width=150",
+    image: "/Hod.jpg",
   },
   {
     name: "Sk. Roshan Ali",
@@ -56,9 +56,9 @@ export default function TeamSection() {
                 <Image
                   src={member.image || "/placeholder.svg"}
                   alt={member.name}
-                  width={150}
-                  height={150}
-                  className="rounded-full mx-auto"
+                  width={130}
+                  height={130}
+                  className="rounded-[50%] object-cover mx-auto w-48 h-48"
                 />
               </CardHeader>
               <CardContent className="text-center">

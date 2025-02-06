@@ -2,7 +2,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="min-h-screen flex items-center justify-center bg-white"
+      className="min-h-screen flex items-center justify-center bg-white my-8 sm:my-0"
     >
       <div className="container mx-auto px-6">
         <h2 className="text-3xl font-bold text-center mb-8 font-playfair">

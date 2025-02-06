@@ -1,6 +1,6 @@
 import { Suspense } from "react";
-import Table from "@/app/components/Table";
-import { TableSkeleton } from "../ui/skeletons";
+import Table from "@/components/Table";
+import { TableSkeleton } from "../../ui/skeletons";
 const staff: { sno: number; mid: string; name: string }[] = [
   {
     sno: 1,

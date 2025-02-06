@@ -33,25 +33,27 @@ export default function Header() {
         <div
           className={`font-bold text-gray-800 whitespace-nowrap overflow-hidden overflow-ellipsis max-w-[calc(100%-48px)] `}
         >
-          <div className={`font-bold flex items-center gap-2`}>
-            <Image
-              src="/rvrlogo.png"
-              alt={"RVR JC logo"}
-              width={50}
-              height={50}
-              sizes="(max-width: 768px) 20px, 50px"
-            />
-            <Image
-              src="/acmlogo.png"
-              alt={"ACM logo"}
-              width={50}
-              height={50}
-              sizes="(max-width: 768px) 20px, 50px"
-            />
-            <span className="text-sm sm:text-base md:text-xl">
-              RVRJCCE ACM Student Chapter
-            </span>
-          </div>
+          <Link href={"/#quote"}>
+            <div className={`font-bold flex items-center gap-2`}>
+              <Image
+                src="/rvrlogo.png"
+                alt={"RVR JC logo"}
+                width={50}
+                height={50}
+                sizes="(max-width: 768px) 20px, 50px"
+              />
+              <Image
+                src="/acmlogo.png"
+                alt={"ACM logo"}
+                width={50}
+                height={50}
+                sizes="(max-width: 768px) 20px, 50px"
+              />
+              <span className="text-sm sm:text-base md:text-xl">
+                RVRJCCE ACM Student Chapter
+              </span>
+            </div>
+          </Link>
         </div>
         <button
           onClick={toggleMenu}

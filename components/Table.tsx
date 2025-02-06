@@ -1,6 +1,6 @@
 export default function Table(props: {
   members?: {
-    sno: number;
+    sno?: number;
     mid: string;
     name: string;
     st_yr?: number;
@@ -30,7 +30,7 @@ export default function Table(props: {
             className={`hover:bg-gray-100 transition-colors duration-200 ${index === members.length - 1 ? "last:rounded-b-lg" : ""}`}
           >
             <td className="px-3 py-1 md:px-6 md:py-2 text-gray-800 border border-gray-300">
-              {member.sno}
+              {index + 1}
             </td>
             <td className="px-3 py-1 md:px-6 md:py-2 text-gray-800 border border-gray-300">
               {member.mid}
