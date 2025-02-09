@@ -6,42 +6,26 @@ if (!MONGO_URI) {
   throw new Error("MONGODB_URI is not defined in environment variables");
 }
 
-interface MongooseCache {
-  conn: Mongoose | null;
-  promise: Promise<Mongoose> | null;
-}
+// Module-level cache instead of global
+let cachedConnection: Mongoose | null = null;
 
-let cached: MongooseCache = (global as any).mongoose;
-
-if (!cached) {
-  cached = (global as any).mongoose = { conn: null, promise: null };
-}
-
-async function dbConnect() {
-  if (cached.conn) return cached.conn;
-
-  if (!cached.promise) {
-    console.log("Connecting to MongoDB...");
-    cached.promise = mongoose
-      .connect(MONGO_URI, { bufferCommands: false })
-      .then((mongooseInstance) => {
-        console.log("MongoDB connected");
-        return mongooseInstance;
-      })
-      .catch((err) => {
-        console.error("MongoDB connection error:", err);
-        throw err;
-      });
+async function dbConnect(): Promise<Mongoose> {
+  if (cachedConnection) {
+    return cachedConnection;
   }
 
   try {
-    cached.conn = await cached.promise;
+    console.log("Connecting to MongoDB...");
+    cachedConnection = await mongoose.connect(MONGO_URI, {
+      bufferCommands: false,
+    });
+    console.log("MongoDB connected");
+    return cachedConnection;
   } catch (err) {
-    cached.conn = null;
-    throw new Error("Failed to connect to Mongodb");
+    console.error("MongoDB connection error:", err);
+    cachedConnection = null;
+    throw new Error("Failed to connect to MongoDB");
   }
-
-  return cached.conn;
 }
 
 export default dbConnect;
