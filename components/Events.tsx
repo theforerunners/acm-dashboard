@@ -20,7 +20,7 @@ const years = [...Array(8).keys()]
 export default function EventsSection() {
   const [selectedYear, setSelectedYear] = useState([2023, 2024]);
 
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: [selectedYear],
     queryFn: () =>
       fetch(`/api/events?start=${selectedYear[0]}&end=${selectedYear[1]}`).then(
