@@ -1,5 +1,5 @@
 import dbConnect from "@/lib/db";
-import { Student } from "@/lib/models/Student";
+import { Event } from "@/lib/models/Event";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -8,16 +8,23 @@ export async function GET(request: NextRequest) {
   try {
     const start = Number(request.nextUrl.searchParams.get("start"));
     const end = Number(request.nextUrl.searchParams.get("end"));
-    const studentDetails = await Student.find({
-      st_yr: {
-        $lte: start,
+
+    const startDate = new Date(Date.UTC(start, 0, 1));
+    const endDate = new Date(Date.UTC(end + 1, 0, 1));
+
+    console.log("Start Date:", startDate); // Debugging
+    console.log("End Date:", endDate); // Debugging
+
+    const eventDetails = await Event.find({
+      dt: {
+        $gte: startDate,
+        $lt: endDate,
       },
-      end_yr: {
-        $gte: end,
-      },
-    });
+    })
+      .sort({ dt: -1 })
+      .exec();
     return NextResponse.json(
-      { success: true, data: studentDetails },
+      { success: true, data: eventDetails },
       { status: 200 },
     );
   } catch (err) {

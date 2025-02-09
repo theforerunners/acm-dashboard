@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ui/card";
 
 const teamMembers = [
@@ -51,14 +52,14 @@ export default function TeamSection() {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
           {teamMembers.map((member, index) => (
-            <Card key={index} className={index === 0 ? "col-span-full" : ""}>
+            <Card key={index} className={cn(index === 0 && "col-span-full")}>
               <CardHeader>
                 <Image
                   src={member.image || "/placeholder.svg"}
                   alt={member.name}
                   width={130}
                   height={130}
-                  className="rounded-[50%] object-cover mx-auto w-48 h-48"
+                  className="rounded-[50%] object-cover mx-auto sm:w-48 sm:h-48 w-32 h-32"
                 />
               </CardHeader>
               <CardContent className="text-center">

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { HomeIcon } from "@heroicons/react/24/outline";
+import { FaInstagram } from "react-icons/fa6";
 
 export default function Footer() {
   return (
@@ -26,6 +27,10 @@ export default function Footer() {
             </p>
             <p>
               Phone: <Link href="tel:08632288254">08632288254</Link>
+            </p>
+            <p className="flex items-center gap-2 mt-2">
+              <FaInstagram className="text-white" size={20} />
+              <Link href="https://www.instagram.com/acm_rvr">@acm_rvr</Link>
             </p>
           </div>
           <div>

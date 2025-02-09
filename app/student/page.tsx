@@ -1,64 +1,26 @@
 "use client";
 import { TableSkeleton } from "@/ui/skeletons";
-import { Suspense } from "react";
-import Table from "@/components/Table";
+import Table from "@/ui/Table";
 import { Button } from "@/ui/button";
-import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
-const students: {
-  mid: string;
-  name: string;
-  st_yr: number;
-  end_yr: number;
-}[] = [
-  {
-    mid: "6301845",
-    name: "Adusumilli Sri Ram Prasad",
-    st_yr: 2023,
-    end_yr: 2024,
-  },
-  {
-    mid: "7510890",
-    name: "Devarapu Naveen Sai Teja",
-    st_yr: 2023,
-    end_yr: 2024,
-  },
-  {
-    mid: "3242342",
-    name: "Shaik Mohammad Haneef",
-    st_yr: 2024,
-    end_yr: 2025,
-  },
-  {
-    mid: "458411",
-    name: "Kiran Kanth",
-    st_yr: 2022,
-    end_yr: 2024,
-  },
-  {
-    mid: "323231",
-    name: "Shaik Roshan Ali",
-    st_yr: 2023,
-    end_yr: 2025,
-  },
-];
-
-const years = [...Array(9).keys()]
+const years = [...Array(8).keys()]
   .map((i) => [i + 2016, i + 1 + 2016])
   .reverse();
 
 const Page = () => {
-  const [selectedYear, setSelectedYear] = useState([2024, 2025]);
-  const filterMembers = (year: number[]) => {
-    return students.filter(
-      (student) => student.st_yr <= year[0] && student.end_yr >= year[1],
-    );
-  };
-  const [members, setMembers] = useState(filterMembers(selectedYear));
+  const [selectedYear, setSelectedYear] = useState([2023, 2024]);
 
-  useEffect(() => {
-    setMembers(filterMembers(selectedYear));
-  }, [selectedYear]);
+  const { data, isLoading } = useQuery({
+    queryKey: [selectedYear],
+    queryFn: () =>
+      fetch(
+        `/api/student?start=${selectedYear[0]}&end=${selectedYear[1]}`,
+      ).then((res) => res.json()),
+  });
+
+  console.log(data);
 
   return (
     <section className="pt-[12vh] min-h-[50vh] px-4 flex flex-col items-center">
@@ -84,9 +46,7 @@ const Page = () => {
       </div>
 
       <div className="w-full max-w-3xl overflow-x-auto">
-        <Suspense fallback={<TableSkeleton />}>
-          <Table members={members} />
-        </Suspense>
+        {isLoading ? <TableSkeleton /> : <Table members={data?.data} />}
       </div>
     </section>
   );
