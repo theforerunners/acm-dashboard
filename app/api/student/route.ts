@@ -15,7 +15,9 @@ export async function GET(request: NextRequest) {
       end_yr: {
         $gte: end,
       },
-    });
+    })
+      .sort({ name: 1 })
+      .exec();
     return NextResponse.json(
       { success: true, data: studentDetails },
       { status: 200 },

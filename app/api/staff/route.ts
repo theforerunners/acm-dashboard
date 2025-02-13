@@ -6,7 +6,7 @@ export async function GET() {
   await dbConnect();
 
   try {
-    const staffDetails = await Staff.find();
+    const staffDetails = await Staff.find().sort({ sno: 1 }).exec();
     return NextResponse.json(
       { success: true, data: staffDetails },
       { status: 200 },
